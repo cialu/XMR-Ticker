@@ -4,7 +4,8 @@
 #
 # /home/pi/xmr-startup.sh
 #
-# screen -t <title> <tab-index> <command>
+# screen -dmS <title> <command>
 
-screen -t monero-node  0 forever /home/pi/monero/monerod
-screen -t xmr-ticker   1 forever python3 /home/pi/xmr-ticker.py
+screen -dmS monero-node bash -c '/home/pi/monero/monerod --rpc-bind-ip=192.168.xxx.xxx --rpc-bind-port=xxxx --confirm-external-bind'
+screen -dmS xmr-ticker bash -c '/usr/bin/python3 /home/pi/xmr-ticker.py'
+
