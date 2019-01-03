@@ -44,20 +44,20 @@ connection = serial.Serial( PORT,  SPEED, timeout=0, stopbits=serial.STOPBITS_TW
 
 while True:
 	try:
-		urleur = 'https://api.cryptonator.com/api/ticker/xmr-eur'   # API for xmr-eur
-		urlbtc = 'https://api.cryptonator.com/api/ticker/xmr-btc'   # API for xmr-btc
-		resulteur = json.load(urllib.request.urlopen(urleur))       # Load eur json
-		tickereur = resulteur["ticker"]                             # Read json keys
-		priceeur = tickereur["price"]                               # Read json keys
-		resultbtc = json.load(urllib.request.urlopen(urlbtc))       # Load btc json
-		tickerbtc = resultbtc["ticker"]                             # Read json keys
-		pricebtc = tickerbtc["price"]                               # Read json keys
-		print ("XMR/EUR", priceeur, "XMR/BTC", pricebtc)            # Print results
-		price = str(priceeur[:-6] + '  ' + pricebtc[:-4])           # Stripe results
-		print (price)                                               # Print striped results
-		connection.write(price.encode())                            # Encode and send results to serial interface
-		time.sleep(10)                                              # Perform a delay
-	except Exception as inst:	                                    # Caught exceptions
-        	print (inst); time.sleep(30)                                # Print errors
+		urleur = 'https://api.cryptonator.com/api/ticker/xmr-eur'                           # API for xmr-eur
+		urlbtc = 'https://api.cryptonator.com/api/ticker/xmr-btc'                           # API for xmr-btc
+		resulteur = json.loads(urllib.request.urlopen(urleur).read().decode('utf-8'))       # Load eur json
+		tickereur = resulteur["ticker"]                                                     # Read json keys
+		priceeur = tickereur["price"]                                                       # Read json keys
+		resultbtc = json.loads(urllib.request.urlopen(urlbtc).read().decode('utf-8'))       # Load btc json
+		tickerbtc = resultbtc["ticker"]                                                     # Read json keys
+		pricebtc = tickerbtc["price"]                                                       # Read json keys
+		print ("XMR/EUR", "  ", "XMR/BTC")                                                  # Print title bar
+                price = str(' ' + priceeur[:-6] + '  ' + pricebtc[:-4])                             # Stripe results
+		print (price)                                                                       # Print striped results
+		connection.write(price.encode())                                                    # Encode and send results to serial interface
+		time.sleep(10)                                                                      # Perform a delay
+	except Exception as inst:	                                                            # Caught exceptions
+        	print (inst); time.sleep(30)                                                        # Print errors
 		
 		
